@@ -13,15 +13,16 @@ def hello_world():
         return render_template('index.html', href2='')
     else:
         myage = request.form['age']
-        mygender = request.form['gender']
-        if str(myage) =='' or str(mygender) =='':
-            return render_template('index.html', href2='Please insert your age and gender.')
+        mysalary = request.form['salary']
+        mymarital = request.form['marital']
+        if str(myage) =='' or str(mysalary) =='' or str(marital) =='':
+            return render_template('index.html', href2='Please insert your age salary and marital.')
         else:
-            model = load('app/bread-recommender.joblib')
-            np_arr = np.array([myage, mygender])
+            model = load('app/movie-prediction.joblib')
+            np_arr = np.array([myage, mysalary, mymarital])
             predictions = model.predict([np_arr])  
             predictions_to_str = str(predictions)
             #return predictions_to_str
-            return render_template('index.html', href2='The suitable bread for you (age:'+str(myage)+' ,gender:'+str(mygender)+') is:'+predictions_to_str)
+            return render_template('index.html', href2='The suitable movie for you (age:'+str(myage)+' ,salary:'+str(mysalary)+' ,marital:'+str(mymarital)+') is:'+predictions_to_str)
         
 
